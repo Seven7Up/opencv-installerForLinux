@@ -11,7 +11,7 @@ curl https://raw.githubusercontent.com/Seven-7Up/opencv-installerForLinux/master
 
 ## For checking-chicken(lol):
 
-Lot of people like check anything before use. No problem, few commands to run:
+Lot of people like check everything before use it. No problem, few commands to run:
 
 ```shell
 git clone https://github.com/Seven-7Up/opencv-installerForLinux.git
