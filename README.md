@@ -9,7 +9,7 @@ I make this shell script to automate [`opencv`](https://github.com/opencv/opencv
 curl https://raw.githubusercontent.com/Seven-7Up/opencv-installerForLinux/master/install-opencv.sh | sudo bash
 ```
 
-## For checking-chiken(lol):
+## For checking-chicken(lol):
 
 Lot of people like check anything before use. No problem, few commands to run:
 
