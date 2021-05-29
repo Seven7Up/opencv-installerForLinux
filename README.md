@@ -1,7 +1,7 @@
 
 # OpenCV Builder for Linux
 
-I make this shell script to automate [`opencv`](https://github.com/opencv/opencv/) and [`opencv_contrib`](https://github.com/opencv/opencv_contrib/) tasks like downloading, install and post installation.
+I make this shell script to automate [`opencv`](https://github.com/opencv/opencv/) and [`opencv_contrib`](https://github.com/opencv/opencv_contrib/) tasks like downloading, install and post installation commands.
 
 ## One Command:
 
