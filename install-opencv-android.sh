@@ -60,7 +60,6 @@ post_installation(){
     rm -f $WD/opencv.zip
 
     ### This file is useful while compiling your project
-    ### You need just run: g++ -g -Wall -o main main.cpp `pkg-config --cflags --libs opencv`
     cat > /usr/lib/pkgconfig/opencv.pc << EOF
 # Package Information for pkg-config
 
