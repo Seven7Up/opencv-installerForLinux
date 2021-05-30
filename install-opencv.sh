@@ -45,6 +45,28 @@ post_installation(){
     ### Lot of tools include <opencv2/...> which it will return an error
     mv /usr/local/include/opencv4/opencv2 /usr/local/include/.
     rm -rf /usr/local/include/opencv4
+}
+
+setup_cv_libs(){
+    opencvLibs="$(ls -l /usr/include/opencv2 | grep drwx | cut -d ' ' -f 11)"
+
+    for lib in $opencvLibs; do
+        cat > "/usr/lib/pkgconfig/opencv_${lib}.pc" << EOF
+# Package Information for pkg-config
+
+prefix=/usr
+libdir=\${prefix}/lib
+includedir=\${prefix}/include/opencv2/${lib}
+
+Name: OpenCV
+Description: Open Source Computer Vision Library - OpenCV lib: ${lib}
+Version: 4.5.1
+Libs: -L\${libdir}
+Cflags: -I\${includedir}
+EOF
+
+    opencvLibs_pc="${opencvLibs_pc} -l${lib}"
+done
 
     ### This file is useful while compiling your project
     ### You need just run: g++ -g -Wall -o main main.cpp `pkg-config --cflags --libs opencv`
@@ -59,7 +81,7 @@ includedir=${exec_prefix}/include/opencv2
 Name: OpenCV
 Description: Open Source Computer Vision Library
 Version: 4.5.1
-Libs: -L${libdir} -lopencv_stitching -lopencv_alphamat -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash -lopencv_intensity_transform -lopencv_line_descriptor -lopencv_mcc -lopencv_quality -lopencv_rapid -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_shape -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_highgui -lopencv_datasets -lopencv_text -lopencv_plot -lopencv_ml -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_ximgproc -lopencv_video -lopencv_dnn -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
+Libs: -L${libdir}${opencvLibs_pc}
 Libs.private: -ldl -lm -lpthread -lrt
 Cflags: -I${includedir}
 EOF
