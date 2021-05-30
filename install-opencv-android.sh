@@ -1,6 +1,8 @@
 #!/bin/bash
 
 WD="$(pwd)"
+### DONT FORGET TO CHANGE THIS IF YOU HAVED INSTALL NDK IN YOUR MACHINE
+NDK_PATH="$WD/ndk/android-ndk-r22b"
 
 get_ndk(){
     wget -O ndk.zip https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
@@ -34,8 +36,8 @@ install_opencv(){
 
     # Configuration
     cmake \
-    -DCMAKE_TOOLCHAIN_FILE="$WD/ndk/android-ndk-r22b/build/cmake/android.toolchain.cmake" \
-    -DANDROID_NDK="$WD/ndk/android-ndk-r22b" \
+    -DCMAKE_TOOLCHAIN_FILE="$NDK_PATH/build/cmake/android.toolchain.cmake" \
+    -DANDROID_NDK="$NDK_PATH" \
     -DANDROID_NATIVE_API_LEVEL=android-24 \
     -DBUILD_JAVA=OFF \
     -DBUILD_ANDROID_EXAMPLES=OFF \
@@ -95,6 +97,9 @@ fi
 which_ndk="$(locate ndk)"
 if ! [ "$which_ndk" ]; then
     get_ndk || die "Failed to get ndk!"
+else
+    echo "DONT FORGET TO CHANE NDK PATH IN THE SCRIPT FILE\!"
+    sleep 4
 fi
 
 get_opencv || die "Coudn't get opencv repo!"
