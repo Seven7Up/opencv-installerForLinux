@@ -59,21 +59,14 @@ post_installation(){
     rm -f $WD/opencv_contrib.zip
     rm -f $WD/opencv.zip
 
-    ### In latest version of opencv, opencv create a folder in /usr/local/include with name as opencv4
-    ### This file is unuseful and make it more complex for the system
-    ### Lot of tools include <opencv2/...> which it will return an error
-    mv /usr/local/include/opencv4/opencv2 /usr/local/include/.
-    rm -rf /usr/local/include/opencv4
-
     ### This file is useful while compiling your project
     ### You need just run: g++ -g -Wall -o main main.cpp `pkg-config --cflags --libs opencv`
     cat > /usr/lib/pkgconfig/opencv.pc << EOF
 # Package Information for pkg-config
 
 prefix=/usr
-exec_prefix=${prefix}/local
 libdir=${prefix}/lib
-includedir=${exec_prefix}/include/opencv2
+includedir=${prefix}/include/opencv2
 
 Name: OpenCV
 Description: Open Source Computer Vision Library
