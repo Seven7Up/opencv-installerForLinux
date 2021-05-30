@@ -1,6 +1,13 @@
 
 # OpenCV Builder for Linux
 
+***
+## BIG UPDATE:
+I maded a script shell which can build [OpenCV](https://opencv.org) for android development in Linux, I don't need [Android Studio](https://developer.android.com/studio/) anymore to build a C++ project in [Android](https://developer.android.com/)!
+
+**DON'T FORGET TO CHANGE NDK PATH IN ANDROID SCRIPT SHELL IF YOU HAD INSTALL NDK BEFORE!!**
+****
+
 I make this shell script to automate [`opencv`](https://github.com/opencv/opencv/) and [`opencv_contrib`](https://github.com/opencv/opencv_contrib/) tasks like downloading, install and post installation commands.
 
 ## One Command:

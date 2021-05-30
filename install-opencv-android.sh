@@ -1,6 +1,8 @@
 #!/bin/bash
 
 WD="$(pwd)"
+### DONT FORGET TO CHANGE THIS IF YOU HAVED INSTALL NDK IN YOUR MACHINE
+NDK_PATH="$WD/ndk/android-ndk-r22b"
 
 get_ndk(){
     wget -O ndk.zip https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
@@ -34,8 +36,8 @@ install_opencv(){
 
     # Configuration
     cmake \
-    -DCMAKE_TOOLCHAIN_FILE="$WD/ndk/android-ndk-r22b/build/cmake/android.toolchain.cmake" \
-    -DANDROID_NDK="$WD/ndk/android-ndk-r22b" \
+    -DCMAKE_TOOLCHAIN_FILE="$NDK_PATH/build/cmake/android.toolchain.cmake" \
+    -DANDROID_NDK="$NDK_PATH" \
     -DANDROID_NATIVE_API_LEVEL=android-24 \
     -DBUILD_JAVA=OFF \
     -DBUILD_ANDROID_EXAMPLES=OFF \
@@ -57,6 +59,7 @@ post_installation(){
     rm -f $WD/opencv_contrib.zip
     rm -f $WD/opencv.zip
 
+<<<<<<< HEAD
     ### In latest version of opencv, opencv create a folder in /usr/local/include with name as opencv4
     ### This file is unuseful and make it more complex for the system
     ### Lot of tools include <opencv2/...> which it will return an error
@@ -85,15 +88,15 @@ EOF
     opencvLibs_pc="${opencvLibs_pc} -l${lib}"
 done
 
+=======
+>>>>>>> 2facc03c0a3ffb21bd5af09d90f9808a64223e9b
     ### This file is useful while compiling your project
-    ### You need just run: g++ -g -Wall -o main main.cpp `pkg-config --cflags --libs opencv`
     cat > /usr/lib/pkgconfig/opencv.pc << EOF
 # Package Information for pkg-config
 
 prefix=/usr
-exec_prefix=${prefix}/local
 libdir=${prefix}/lib
-includedir=${exec_prefix}/include/opencv2
+includedir=${prefix}/include/opencv2
 
 Name: OpenCV
 Description: Open Source Computer Vision Library
@@ -117,6 +120,9 @@ fi
 which_ndk="$(locate ndk)"
 if ! [ "$which_ndk" ]; then
     get_ndk || die "Failed to get ndk!"
+else
+    echo "DONT FORGET TO CHANE NDK PATH IN THE SCRIPT FILE\!"
+    sleep 4
 fi
 
 get_opencv || die "Coudn't get opencv repo!"
