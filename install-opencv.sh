@@ -99,7 +99,8 @@ fi
 
 get_opencv || die "Coudn't get opencv repo!"
 install_opencv || die "Coudn't install opencv!"
-post_installation || die "Coudn't finish post installation"
+post_installation || die "Coudn't finish post installation!"
+setup_cv_libs || die "Couldn't setup all opencv libraries!"
 echo ""
 echo "YOU GET IT, ENJOY!!"
 opencv_version="$(pkg-config --modversion opencv)"

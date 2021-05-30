@@ -59,12 +59,10 @@ post_installation(){
     rm -f $WD/opencv_contrib.zip
     rm -f $WD/opencv.zip
 
-<<<<<<< HEAD
     ### In latest version of opencv, opencv create a folder in /usr/local/include with name as opencv4
     ### This file is unuseful and make it more complex for the system
     ### Lot of tools include <opencv2/...> which it will return an error
-    mv /usr/local/include/opencv4/opencv2 /usr/local/include/.
-    rm -rf /usr/local/include/opencv4
+    mv /usr/include/opencv2 /usr/local/include/.
 }
 
 setup_cv_libs(){
@@ -88,8 +86,6 @@ EOF
     opencvLibs_pc="${opencvLibs_pc} -l${lib}"
 done
 
-=======
->>>>>>> 2facc03c0a3ffb21bd5af09d90f9808a64223e9b
     ### This file is useful while compiling your project
     cat > /usr/lib/pkgconfig/opencv.pc << EOF
 # Package Information for pkg-config
@@ -127,7 +123,8 @@ fi
 
 get_opencv || die "Coudn't get opencv repo!"
 install_opencv || die "Coudn't install opencv!"
-post_installation || die "Coudn't finish post installation"
+post_installation || die "Coudn't finish post installation!"
+setup_cv_libs || die "Couldn't setup all opencv libraries!"
 echo ""
 echo "YOU GET IT, ENJOY!!"
 opencv_version="$(pkg-config --modversion opencv)"
