@@ -29,6 +29,8 @@ install_opencv(){
     # Configuration
     cmake -DOPENCV_EXTRA_MODULES_PATH="$WD/opencv_contrib-master/modules" \
         "$WD/opencv-master"
+    
+    make -j$(nproc --all)
 
     # Install it
     make install
